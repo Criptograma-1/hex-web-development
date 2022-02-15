@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Delete cookie and mini application </title>
+</head>
+<body>
+  <div id="form">
+    <h2>Login to the website</h2>
+    <input type="text" id="firstName" placeholder="Firstname"/>
+    <input type="email" id="email" placeholder="Email"/>
+    <button onclick="setCookies()" id="setCookies">Log me in</button>
+  </div>
+  
+
+  <script>
+    function setCookies() {
+      const firstName = document.getElementById('firstName').value;
+      const email = document.getElementById('email').value;
+      if (firstName && email) { 
+        document.cookie = `firstname=${firstName}; max-age=864000`; 
+        document.cookie = `email=${email}; max-age=864000`;
+      } else {alert('Empty fields not are allowed')}
+      showWelcomeMessageOrForm();
+    }
+
+    function getCookie(name) {
+      const cookies = document.cookie.split("; ");
+      for (let i = 0; i < cookies.length; i++) {
+        let cookie = cookies[i].split("=");
+        if(cookie[0] === name) { return cookie[1];}
+      }
+      return "";
+    }
+
+    function showForm() {
+      const divForm = document.getElementById('form');
+      divForm.style.display = "block";
+      const divWelcome = document.getElementById('welcome');
+      if (divWelcome) {divWelcome.style.display = "none"};
+    }
+
+    function hideForm() {
+      const divForm = document.getElementById('form');
+      divForm.style.display = "none";
+    }
+
+    function deleteCookiesAndShowForm() {
+      const date = new Date().toUTCString();
+      document.cookie = `firstname=;expires=${date}`;
+      document.cookie = `email=;expires=${date}`;
+      showForm();
+    }
+
+      function showWelcomeMessageOrForm() {
+        if (!document.cookie) {
+          showForm();
+        } else {
+          const welcome = document.createElement("div");
+          welcome.setAttribute("id", "welcome");
+          welcome.innerHTML = `<h1>Welcome: ${getCookie("firstname")} 
+            <a style="font-weight: normal; font-style: italic; cursor: pointer; margin-left: 10px;" onclick="deleteCookiesAndShowForm()">(logout)</a></h1>`;
+          document.body.append(welcome);
+          hideForm();
+        }
+      }
+
+      showWelcomeMessageOrForm();
+    
+
+  </script>
+
+</body>
+</html>

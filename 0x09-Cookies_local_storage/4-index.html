@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+  <title> Use js-cookie </title>
+</head>
+<body>
+  <div id="form">
+    <h2>Login to the website</h2>
+    <input type="text" id="firstName" placeholder="Firstname"/>
+    <input type="email" id="email" placeholder="Email"/>
+    <button onclick="setCookiesAndShowWelcomeMessage()" id="setCookies">Log me in</button>
+  </div>
+  
+  <script>
+    function setCookiesAndShowWelcomeMessage() {
+      const firstName = document.getElementById('firstName').value;
+      const email = document.getElementById('email').value;
+      if (firstName && email) { 
+        Cookies.set('firstname', firstName, { expires: 7, path: '' }) 
+        Cookies.set('email', email, { expires: 7, path: '' }) 
+      } else {alert('Empty fields not are allowed')}
+      showWelcomeMessageOrForm();
+    }
+
+    function showForm() {
+      const divForm = document.getElementById('form');
+      divForm.style.display = "block";
+      const divWelcome = document.getElementById('welcome');
+      if (divWelcome) {divWelcome.remove();};
+    }
+
+    function hideForm() {
+      const divForm = document.getElementById('form');
+      divForm.style.display = "none";
+    }
+
+    function deleteCookiesAndShowForm() {
+        Cookies.remove("firstname");
+        Cookies.remove("email");
+        showForm();
+      }
+
+      function showWelcomeMessageOrForm() {
+        if (!document.cookie) {
+          showForm();
+        } else {
+          const welcome = document.createElement("div");
+          welcome.setAttribute("id", "welcome");
+          welcome.innerHTML = `<h1>Welcome: ${Cookies.get("firstname")} 
+            <a style="font-weight: normal; font-style: italic; cursor: pointer; margin-left: 10px;" onclick="deleteCookiesAndShowForm()">(logout)</a></h1>`;
+          document.body.append(welcome);
+          hideForm();
+        }
+      }
+
+      showWelcomeMessageOrForm();
+    
+
+  </script>
+
+</body>
+</html>
