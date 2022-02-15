@@ -1,0 +1,15 @@
+/* My style */
+%is-equal {
+	font-size: 12px;
+}
+.info {
+	@extend %is-equal;
+}
+.success {
+	@extend %is-equal;
+	color: #00FF00;
+}
+.warning {
+	@extend %is-equal;
+	color: #FF0000;
+}
