@@ -16,12 +16,13 @@ class MRUCache(BaseCaching):
 
     def put(self, key, item):
         """Put function"""
+        if len(self.cache_data) == self.MAX_ITEMS and key not in self.__keys:
+            discard = self.__keys.pop()
+            del self.cache_data[discard]
+            print('DISCARD: {}'.format(discard))
         if key and item:
             if key not in self.__keys:
                 self.__keys.append(key)
-                if len(self.cache_data) == self.MAX_ITEMS:
-                    print("DISCARD: {}".format(self.__keys.pop()))
-                    del(self.cache_data[self.__keys.pop()])
             self.cache_data[key] = item
 
     def get(self, key):
