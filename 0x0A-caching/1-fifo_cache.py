@@ -8,7 +8,10 @@ from base_caching import BaseCaching
 
 class FIFOCache(BaseCaching):
     """BaseCaching Caching System"""
-    super().__init__()
+
+    def __init__(self) -> None:
+        """Init function"""
+        super().__init__()
 
     def put(self, key, item):
         """Put function"""
