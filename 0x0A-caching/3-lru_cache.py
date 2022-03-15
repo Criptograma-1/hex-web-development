@@ -31,10 +31,11 @@ class LRUCache(BaseCaching):
 
     def get(self, key):
         """Get function"""
-        if key is not None:
-            if key in self.list_name:
-                if self.list_name[-1] != key:
-                    self.list_name.remove(key)
-                    self.list_name.append(key)
-             return self.cache_data[key]
-        return None
+        if key is None or self.cache_data.get(key) is None:
+            return None
+        if key in self.list_name:
+            if self.list_name[-1] != key:
+                self.list_name.remove(key)
+                self.list_name.append(key)
+
+        return self.cache_data[key]
