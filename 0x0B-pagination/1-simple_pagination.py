@@ -44,6 +44,7 @@ class Server:
 
         return (pagination[range[0]:range[1]])
 
+
 def index_range(page: int, page_size: int) -> Tuple[int, int]:
     """Range of a page
        Args:
