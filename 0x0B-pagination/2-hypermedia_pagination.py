@@ -81,7 +81,7 @@ class Server:
 
         return hyper
 
-    
+
 def index_range(page: int, page_size: int) -> Tuple[int, int]:
     """Range of a page
        Args:
