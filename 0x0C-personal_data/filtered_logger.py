@@ -8,7 +8,7 @@ import re
 def filter_datum(fields: List[str],
                  redaction: str,
                  message: str,
-                 separator: str):
+                 separator: str) -> str:
     """Function that use a regex to replace occurrences of certain field values
        Args:
             -fields: a list of strings representing all fields to obfuscate.
@@ -23,4 +23,4 @@ def filter_datum(fields: List[str],
         message = re.sub(fr'{i}=.+?{separator}',
                          f'{i}={redaction}{separator}',
                          message)
-    return message
+        return message
