@@ -5,6 +5,8 @@ from typing import List
 import re
 import logging
 
+PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'password')
+
 
 class RedactingFormatter(logging.Formatter):
     """ Redacting Formatter class"""
@@ -30,7 +32,7 @@ def filter_datum(fields: List[str],
                  redaction: str,
                  message: str,
                  separator: str) -> str:
-    """Mwthod that use a regex to replace occurrences of certain field values
+    """Method that use a regex to replace occurrences of certain field values
        Args:
             -fields: a list of strings representing all fields to obfuscate.
             -redaction: a string representing by what the field will
@@ -46,3 +48,18 @@ def filter_datum(fields: List[str],
                          f'{i}={redaction}{separator}',
                          message)
     return message
+
+
+def get_logger() -> logging.Logger:
+    """Hide important PIIs or information in logs
+        Return:
+            -a logging.Logger object
+    """
+    logger = logging.getLogger("user_data")
+    handler = logging.StreamHandler()
+    logger.setLevel(logging.INFO)
+    logger.propagate = False
+    handler.setFormatter(RedactingFormatter(PII_FIELDS))
+    logger.addHandler(handler)
+    return logger
+
