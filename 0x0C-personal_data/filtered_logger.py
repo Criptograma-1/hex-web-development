@@ -3,13 +3,34 @@
 
 from typing import List
 import re
+import logging
+
+
+class RedactingFormatter(logging.Formatter):
+    """ Redacting Formatter class"""
+
+    REDACTION = "***"
+    FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
+    SEPARATOR = ";"
+
+    def __init__(self, fields: List[str]):
+        """Constructor"""
+        self.fields = fields
+        super(RedactingFormatter, self).__init__(self.FORMAT)
+
+    def format(self, record: logging.LogRecord) -> str:
+        """Method to filter values in incoming log records"""
+        return filter_datum(self.fields,
+                            self.REDACTION,
+                            super().format(record),
+                            self.SEPARATOR)
 
 
 def filter_datum(fields: List[str],
                  redaction: str,
                  message: str,
                  separator: str) -> str:
-    """Function that use a regex to replace occurrences of certain field values
+    """Mwthod that use a regex to replace occurrences of certain field values
        Args:
             -fields: a list of strings representing all fields to obfuscate.
             -redaction: a string representing by what the field will
