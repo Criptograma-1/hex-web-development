@@ -71,7 +71,7 @@ class Server:
         keys_list = list(index_data.keys())
         assert index + page_size < len(keys_list)
         assert index < len(keys_list)
-        
+
         if index not in index_data:
             start_index = keys_list[index]
         else:

@@ -68,7 +68,7 @@ class Server:
         totalPages = len(dataSet) if dataSet else 0
         totalPages = ceil(totalPages / page_size)
         prevPage = (page - 1) if (page - 1) >= 1 else None
-        nextPage = (page + 1) if (page - 1) <= totalPages else None
+        nextPage = (page + 1) if (page + 1) <= totalPages else None
 
         hyper: Dict = {
             'page_size': page_size,
@@ -80,6 +80,7 @@ class Server:
         }
 
         return hyper
+
 
 def index_range(page: int, page_size: int) -> Tuple[int, int]:
     """Range of a page
