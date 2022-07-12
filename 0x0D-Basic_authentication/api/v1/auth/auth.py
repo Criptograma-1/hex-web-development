@@ -23,6 +23,15 @@ class Auth:
         if path in excluded_paths or f"{path}/" in excluded_paths:
             return False
 
+        regex_excluded_paths = []
+
+        for excluded_path in excluded_paths:
+            if excluded_path[-1] == "*":
+                regex_excluded_paths.append(excluded_path[:-1])
+        for i in regex_excluded_paths:
+            if i in path:
+                return False
+
         return True
 
     def authorization_header(self, request=None) -> str:
