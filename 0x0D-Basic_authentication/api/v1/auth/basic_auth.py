@@ -9,8 +9,8 @@ class BasicAuth(Auth):
     """
     A class that inherits from Auth
     """
-     def __init__(self) -> None:
-         """
-         Initialize the class
-         """
-         super().__init__()
+    def __init__(self) -> None:
+        """
+        Initialize the class
+        """
+        super().__init__()
