@@ -20,7 +20,6 @@ class BasicAuth(Auth):
         """
         pass
 
-
     def extract_base64_authorization_header(
             self,
             authorization_header: str) -> str:
@@ -36,7 +35,6 @@ class BasicAuth(Auth):
             return None
         else:
             return authorization_header.split(" ")[1]
-
 
     def decode_base64_authorization_header(
             self,
@@ -55,7 +53,6 @@ class BasicAuth(Auth):
         except(binascii.Error, UnicodeDecodeError):
             return None
 
-
     def extract_user_credentials(
             self,
             decoded_base64_authorization_header: str) -> (str, str):
@@ -70,7 +67,6 @@ class BasicAuth(Auth):
             return(None, None)
         text_return = tuple(decoded_base64_authorization_header.split(":", 1))
         return text_return
-
 
     def user_object_from_credentials(
             self,
@@ -93,7 +89,6 @@ class BasicAuth(Auth):
         if valid_password:
             return current_user
         return None
-
 
     def current_user(self, request=None) -> TypeVar('User'):
         """
