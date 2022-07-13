@@ -40,7 +40,7 @@ class SessionDBAuth(SessionExpAuth):
             timedelta(seconds=self.session_duration)
         if expired_tm < datetime.now():
             return None
-        return user.user_id       
+        return user.user_id
 
     def destroy_session(self, request=None):
         """destroys the UserSession based on
