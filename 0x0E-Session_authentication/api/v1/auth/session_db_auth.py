@@ -28,18 +28,18 @@ class SessionDBAuth(SessionExpAuth):
     def user_id_for_session_id(self, session_id=None):
         """Returns the User ID by requesting UserSession
         in the database based on session_id"""
-        if session_id is None or type(session_id) is not str:
+        if session_id is None:
             return None
         UserSession.load_from_file()
-        user_session = UserSession.search({'session_id': session_id})
-        if not user_session:
+        user_sess = UserSession.search({'session_id': session_id})
+        if not user_sess:
             return None
-        user = user_session[0]
+        user = user_sess[0]
         if user is None:
             return None
-        expired_time = user.created_at + timedelta(
-                seconds=self.session_duration)
-        if expired_time < datetime.now():
+        expired_tm = user.created_at + \
+            timedelta(seconds=self.session_duration)
+        if expired_tm < datetime.now():
             return None
         return user.user_id
         
