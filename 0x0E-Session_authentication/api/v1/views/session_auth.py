@@ -37,6 +37,6 @@ def session_login() -> str:
 def session_logout() -> str:
     """Route DELETE /api/v1/auth_session/logout"""
     from api.v1.app import auth
-    if auth.destroy_session(request) is False:
+    if not auth.destroy_session(request):
         abort(404)
     return jsonify({}), 200
