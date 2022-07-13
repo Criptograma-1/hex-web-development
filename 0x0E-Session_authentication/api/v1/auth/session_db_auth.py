@@ -24,7 +24,6 @@ class SessionDBAuth(SessionExpAuth):
         UserSession.save_to_file()
         return session_id
 
-
     def user_id_for_session_id(self, session_id=None):
         """Returns the User ID by requesting UserSession
         in the database based on session_id"""
@@ -41,8 +40,7 @@ class SessionDBAuth(SessionExpAuth):
             timedelta(seconds=self.session_duration)
         if expired_tm < datetime.now():
             return None
-        return user.user_id
-        
+        return user.user_id       
 
     def destroy_session(self, request=None):
         """destroys the UserSession based on
