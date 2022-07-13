@@ -11,13 +11,13 @@ class SessionDBAuth(SessionExpAuth):
     def create_session(self, user_id=None):
         """Creates and stores new instance
         of UserSession and returns the Session ID"""
-        try:
-            session_id = super().create_session(user_id)
-        except Exception:
+        session_id = super().create_session(user_id)
+        if session_id is None:
             return None
-        session_dictionary = {
-                'user_id': user_id, 'session_id': session_id}
-        user_session = UserSession(session_dictionary)
+        user_session = UserSession(
+            user_id=user_id,
+            session_id=session_id
+        )
         if user_session is None:
             return None
         user_session.save()
