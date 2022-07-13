@@ -2,6 +2,7 @@
 """Model UserSession"""
 
 from models.base import Base
+import hashlib
 
 
 class UserSession(Base):
