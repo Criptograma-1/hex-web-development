@@ -41,17 +41,6 @@ class DB:
         session.commit()
         return user
 
-    def update_user(self, user_id: int, **kwargs) -> None:
-        """Update user, method that takes as argument
-        """
-        user = self.find_user_by(id=user_id)
-        for key, val in kwargs.items():
-            if key not in DATA:
-                raise ValueError
-            setattr(user, key, val)
-        self._session.commit()
-        return None
-
     def find_user_by(self, **kwargs) -> User:
         """Find user, method that takes as argument:
             - arbitrary keyword arguments
@@ -62,3 +51,16 @@ class DB:
         if not user:
             raise NoResultFound
         return user
+        
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """Update user
+        Args:
+            user_id (int): id of user
+        """
+        user = self.find_user_by(id=user_id)
+        for key, val in kwargs.items():
+            if key not in DATA:
+                raise ValueError
+            setattr(user, key, val)
+        self._session.commit()
+        return None
