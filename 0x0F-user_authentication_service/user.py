@@ -11,7 +11,7 @@ class User(Base):
     """Model named User"""
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
-    email = Column(String, nullable=False)
-    hashed_password = Column(String, nullable=False)
-    session_id = Column(String)
-    reset_token = Column(String)
+    email = Column(String(250), nullable=False)
+    hashed_password = Column(String(250), nullable=False)
+    session_id = Column(String(250))
+    reset_token = Column(String(250))
