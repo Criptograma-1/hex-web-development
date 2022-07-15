@@ -14,6 +14,7 @@ def _generate_uuid() -> str:
     """
     return str(uuid4())
 
+
 def _hash_password(password: str) -> str:
     """Returns a hashed password"""
     return hashpw(password.encode('utf-8'), gensalt())
@@ -25,6 +26,7 @@ class Auth:
 
     def __init__(self):
         self._db = DB()
+
 
     def register_user(self, email: str, password: str) -> User:
         """Register user
@@ -42,6 +44,7 @@ class Auth:
         except NoResultFound:
             return self._db.add_user(email, _hash_password(password))
 
+
     def valid_login(self, email: str, password: str) -> bool:
         """Valid login"""
         try:
@@ -49,6 +52,7 @@ class Auth:
         except NoResultFound:
             return False
         return checkpw(password.encode('utf-8'), user.hash_password)
+
 
     def create_session(self, email: str) -> str:
         """create a new session for user
@@ -63,6 +67,7 @@ class Auth:
             self._db.update_user(user.id, session_id=session_id)
         except NoResultFound:
             return
+
 
     def get_user_from_session_id(self, session_id: str) -> str:
         """get user from session id
@@ -79,6 +84,7 @@ class Auth:
         except NoResultFound:
             return
 
+
     def destroy_session(self, user_id: int) -> None:
         """destroy session
         Args:
@@ -89,6 +95,7 @@ class Auth:
             self._db.update_user(user.id, session_id=None)
         except NoResultFound:
             pass
+
 
     def get_reset_password_token(self, email: str) -> str:
         """get reset password token
@@ -106,6 +113,7 @@ class Auth:
             return reset_token
         except NoResultFound:
             raise ValueError
+
 
     def update_password(self, reset_token: str, password: str) -> None:
         """update password
