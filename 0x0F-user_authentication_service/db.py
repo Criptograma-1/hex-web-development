@@ -16,6 +16,7 @@ DATA = ['id', 'email', 'hashed_password', 'session_id', 'reset_token']
 
 
 class DB:
+    """ Class DB """
 
     def __init__(self):
         self._engine = create_engine("sqlite:///a.db", echo=False)
