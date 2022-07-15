@@ -8,6 +8,7 @@ from user import User
 from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.orm.exc import NoResultFound
 
+
 def register_user(email: str, password: str) -> None:
     """register_user"""
     assert True
@@ -72,4 +73,3 @@ if __name__ == "__main__":
     reset_token = reset_password_token(EMAIL)
     update_password(EMAIL, reset_token)
     log_in(EMAIL, NEW_PASSWD)
-
